@@ -7,7 +7,7 @@ import {
   SearchComponent,
   EmployeeViewComponent,
 } from './components';
-import { EmployeeService } from './services/index';
+import { EmployeeService, LoggerService } from './services';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { EmployeeService } from './services/index';
     EmployeeViewComponent,
   ],
   imports: [BrowserModule],
-  providers: [EmployeeService],
+  providers: [EmployeeService, LoggerService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
