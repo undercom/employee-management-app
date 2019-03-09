@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
 })
-export class EmployeeListComponent {
-  employees = [
+export class EmployeeListComponent implements OnInit {
+  private _employees = [
     {
       id: 'ae7b7cce-57b2-4a79-ba23-4fbc170fae80',
       picture: 'https://randomuser.me/api/portraits/thumb/women/16.jpg',
@@ -137,4 +137,19 @@ export class EmployeeListComponent {
       position: 'Software Architect',
     },
   ];
+
+  employees: Array<any>;
+
+  ngOnInit(): void {
+    this.employees = this._employees;
+  }
+
+  filterEmployees(text: string) {
+    const hasSearchText = text && text.length > 0;
+    this.employees = hasSearchText
+      ? this._employees.filter(e =>
+          e.name.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+        )
+      : this._employees;
+  }
 }

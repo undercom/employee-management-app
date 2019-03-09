@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmployeeListComponent } from './employee-list.component';
+import { SearchComponent, EmployeeViewComponent } from '../index';
 
 describe('EmployeeListComponent', () => {
   let component: EmployeeListComponent;
@@ -8,7 +9,11 @@ describe('EmployeeListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EmployeeListComponent],
+      declarations: [
+        EmployeeListComponent,
+        SearchComponent,
+        EmployeeViewComponent,
+      ],
     }).compileComponents();
   });
 
