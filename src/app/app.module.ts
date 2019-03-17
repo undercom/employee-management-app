@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 
 import { routes } from './app.routes';
 
+import { CoreModule } from './core/core.module';
+
 import {
   EmployeeListComponent,
   SearchComponent,
@@ -23,7 +25,7 @@ import {
     EmployeeDetailsComponent,
     EmployeeViewComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  imports: [BrowserModule, RouterModule.forRoot(routes), CoreModule.forRoot()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
