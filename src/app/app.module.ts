@@ -1,22 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { EmployeeService, LoggerService } from './services';
+
+import { routes } from './app.routes';
+
 import {
   EmployeeListComponent,
   SearchComponent,
+  PageNotFoundComponent,
   EmployeeViewComponent,
 } from './components';
-import { EmployeeService, LoggerService } from './services';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeListComponent,
     SearchComponent,
+    PageNotFoundComponent,
     EmployeeViewComponent,
   ],
-  imports: [BrowserModule],
+  imports: [BrowserModule, RouterModule.forRoot(routes)],
   providers: [EmployeeService, LoggerService],
   bootstrap: [AppComponent],
 })
