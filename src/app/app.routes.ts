@@ -4,12 +4,17 @@ import {
   EmployeeListComponent,
   PageNotFoundComponent,
   EmployeeDetailsComponent,
+  NewEmployeeComponent,
 } from './components';
 
 const routes: Routes = [
   {
     path: 'employees',
     component: EmployeeListComponent,
+  },
+  {
+    path: 'employees/new',
+    component: NewEmployeeComponent,
   },
   {
     path: 'employees/:id',

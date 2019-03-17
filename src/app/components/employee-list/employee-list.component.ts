@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../../services/index';
+import { Router } from '@angular/router';
+
+import { EmployeeService } from '../../core/services';
 
 @Component({
   selector: 'app-employee-list',
@@ -9,7 +11,10 @@ export class EmployeeListComponent implements OnInit {
   private _employees: Array<any>;
   employees: Array<any>;
 
-  constructor(private employeesService: EmployeeService) {}
+  constructor(
+    private employeesService: EmployeeService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this._employees = this.employeesService.getEmployees();
@@ -23,5 +28,9 @@ export class EmployeeListComponent implements OnInit {
           e.name.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         )
       : this._employees;
+  }
+
+  goToNewEmployee() {
+    this.router.navigateByUrl('employees/new');
   }
 }

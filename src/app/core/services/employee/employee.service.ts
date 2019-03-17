@@ -152,6 +152,9 @@ export class EmployeeService {
     },
   ];
 
+  private defaultUserPicture =
+    'https://randomuser.me/api/portraits/thumb/lego/5.jpg';
+
   constructor(private logger: LoggerService) {}
 
   getEmployees(): Employee[] {
@@ -159,8 +162,38 @@ export class EmployeeService {
     return this._employees;
   }
 
-  getEmployeeById(id: string) {
+  getEmployeeById(id: string): Employee {
     this.logger.log(`Get employee ${id}`);
     return this._employees.find(e => e.id === id);
+  }
+
+  addEmployee(employee: Employee) {
+    employee.id = this.getNewId();
+    employee.picture = this.defaultUserPicture;
+    employee.address = <Address>{};
+
+    this._employees.push(employee);
+  }
+
+  private getNewId(): string {
+    const s4 = () =>
+      Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+
+    return (
+      s4() +
+      s4() +
+      '-' +
+      s4() +
+      '-' +
+      s4() +
+      '-' +
+      s4() +
+      '-' +
+      s4() +
+      s4() +
+      s4()
+    );
   }
 }
