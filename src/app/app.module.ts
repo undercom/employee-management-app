@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { EmployeeService, LoggerService } from './services';
-
 import { routes } from './app.routes';
+
+import { CoreModule } from './core/core.module';
 
 import {
   EmployeeListComponent,
@@ -24,8 +24,8 @@ import {
     EmployeeDetailsComponent,
     EmployeeViewComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
-  providers: [EmployeeService, LoggerService],
+  imports: [BrowserModule, RouterModule.forRoot(routes), CoreModule.forRoot()],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
