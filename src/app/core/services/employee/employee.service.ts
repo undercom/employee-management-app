@@ -170,7 +170,9 @@ export class EmployeeService {
   addEmployee(employee: Employee) {
     employee.id = this.getNewId();
     employee.picture = this.defaultUserPicture;
-    employee.address = <Address>{};
+    if (!employee.address) {
+      employee.address = <Address>{};
+    }
 
     this._employees.push(employee);
   }
