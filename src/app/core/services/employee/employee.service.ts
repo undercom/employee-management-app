@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LoggerService } from '../logger/logger.service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 export interface Address {
   street: string;
@@ -19,6 +23,12 @@ export interface Employee {
 
 @Injectable()
 export class EmployeeService {
+  private _logger: LoggerService;
+  private _http: HttpClient;
+  private _apiUrl = 'http://localhost:3000/api/employees';
+  private defaultUserPicture =
+    'https://randomuser.me/api/portraits/thumb/lego/5.jpg';
+
   private _employees: Employee[] = [
     {
       id: 'ae7b7cce-57b2-4a79-ba23-4fbc170fae80',
@@ -152,50 +162,36 @@ export class EmployeeService {
     },
   ];
 
-  private defaultUserPicture =
-    'https://randomuser.me/api/portraits/thumb/lego/5.jpg';
+  constructor(logger: LoggerService, http: HttpClient) {
+    this._logger = logger;
+    this._http = http;
+  }
 
-  constructor(private logger: LoggerService) {}
+  getEmployees(): Observable<Employee[]> {
+    this._logger.log('Get employees');
 
-  getEmployees(): Employee[] {
-    this.logger.log('Get employees');
-    return this._employees;
+    return this._http
+      .get<Employee[]>(this._apiUrl)
+      .pipe(catchError(this.handleError));
   }
 
   getEmployeeById(id: string): Employee {
-    this.logger.log(`Get employee ${id}`);
+    this._logger.log(`Get employee ${id}`);
     return this._employees.find(e => e.id === id);
   }
 
   addEmployee(employee: Employee) {
-    employee.id = this.getNewId();
     employee.picture = this.defaultUserPicture;
     if (!employee.address) {
       employee.address = <Address>{};
     }
 
-    this._employees.push(employee);
+    return this._http
+      .post(this._apiUrl, employee)
+      .pipe(catchError(this.handleError));
   }
 
-  private getNewId(): string {
-    const s4 = () =>
-      Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-
-    return (
-      s4() +
-      s4() +
-      '-' +
-      s4() +
-      '-' +
-      s4() +
-      '-' +
-      s4() +
-      '-' +
-      s4() +
-      s4() +
-      s4()
-    );
+  handleError(error: HttpErrorResponse) {
+    return throwError(error);
   }
 }

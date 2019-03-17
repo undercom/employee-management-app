@@ -6,6 +6,8 @@ import { EmployeeService } from '../../core/services';
 import { Subject, combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
 
+import { Employee } from '../../core/services';
+
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
@@ -23,8 +25,10 @@ export class EmployeeListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._employees = this.employeesService.getEmployees();
-    this.employees = this._employees;
+    this.employeesService.getEmployees().subscribe((employees: Employee[]) => {
+      this._employees = this.employees = employees;
+      this.employees = this._employees;
+    });
 
     const filteredSearchStream$ = this.searchStream$.pipe(
       debounceTime(200),
@@ -39,6 +43,10 @@ export class EmployeeListComponent implements OnInit {
   }
 
   filterEmployees(text: string = '', onlyDevs: boolean) {
+    if (!this._employees) {
+      return;
+    }
+
     this.employees = this._employees.filter(empFilterFunction, {
       text,
       onlyDevs,
