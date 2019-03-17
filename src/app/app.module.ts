@@ -6,10 +6,10 @@ import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 import {
   EmployeeListComponent,
-  SearchComponent,
   PageNotFoundComponent,
   EmployeeDetailsComponent,
   EmployeeViewComponent,
@@ -19,12 +19,16 @@ import {
   declarations: [
     AppComponent,
     EmployeeListComponent,
-    SearchComponent,
     PageNotFoundComponent,
     EmployeeDetailsComponent,
     EmployeeViewComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes), CoreModule.forRoot()],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    CoreModule.forRoot(),
+    SharedModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
