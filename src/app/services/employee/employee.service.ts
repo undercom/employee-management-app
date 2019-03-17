@@ -156,7 +156,11 @@ export class EmployeeService {
 
   getEmployees(): Employee[] {
     this.logger.log('Get employees');
-
     return this._employees;
+  }
+
+  getEmployeeById(id: string) {
+    this.logger.log(`Get employee ${id}`);
+    return this._employees.find(e => e.id === id);
   }
 }
