@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { EmployeeService, Employee } from '../../services';
+import { EmployeeService, Employee } from '../../core/services';
 
 @Component({
   selector: 'app-employee-details',
@@ -18,5 +18,13 @@ export class EmployeeDetailsComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
     this.employee = this.employeeService.getEmployeeById(id);
+  }
+
+  changeAddress() {
+    this.employee.address.street += '2';
+  }
+
+  save(value) {
+    console.log(value);
   }
 }
