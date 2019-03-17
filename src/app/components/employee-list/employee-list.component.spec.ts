@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmployeeListComponent } from './employee-list.component';
-import { SearchComponent, EmployeeViewComponent } from '../index';
+import { SearchComponent, EmployeeViewComponent } from 'app/components';
+import { EmployeeService, LoggerService } from 'app/shared';
 
 describe('EmployeeListComponent', () => {
   let component: EmployeeListComponent;
@@ -14,6 +15,7 @@ describe('EmployeeListComponent', () => {
         SearchComponent,
         EmployeeViewComponent,
       ],
+      providers: [EmployeeService, LoggerService],
     }).compileComponents();
   });
 
