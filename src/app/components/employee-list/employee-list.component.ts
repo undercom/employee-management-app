@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 import { EmployeeService } from '../../core/services';
 
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { Subject, combineLatest } from 'rxjs';
+import { debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-employee-list',
@@ -15,6 +15,7 @@ export class EmployeeListComponent implements OnInit {
 
   employees: Array<any>;
   searchStream$ = new Subject<string>();
+  filterStream$ = new Subject<boolean>();
 
   constructor(
     private employeesService: EmployeeService,
@@ -25,25 +26,37 @@ export class EmployeeListComponent implements OnInit {
     this._employees = this.employeesService.getEmployees();
     this.employees = this._employees;
 
-    this.searchStream$
-      .pipe(
-        debounceTime(200),
-        distinctUntilChanged(),
-        filter(s => s.length > 2)
-      )
-      .subscribe(searchTerm => this.filterEmployees(searchTerm));
+    const filteredSearchStream$ = this.searchStream$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      startWith('')
+    );
+    const devFilterStream$ = this.filterStream$.pipe(startWith(false));
+
+    combineLatest(filteredSearchStream$, devFilterStream$).subscribe(
+      ([searchTerm, onlyDevs]) => this.filterEmployees(searchTerm, onlyDevs)
+    );
   }
 
-  filterEmployees(text: string) {
-    const hasSearchText = text && text.length > 0;
-    this.employees = hasSearchText
-      ? this._employees.filter(e =>
-          e.name.toLocaleLowerCase().includes(text.toLocaleLowerCase())
-        )
-      : this._employees;
+  filterEmployees(text: string = '', onlyDevs: boolean) {
+    this.employees = this._employees.filter(empFilterFunction, {
+      text,
+      onlyDevs,
+    });
   }
 
   goToNewEmployee() {
     this.router.navigateByUrl('employees/new');
   }
+}
+
+function empFilterFunction(employee: any) {
+  console.log('Filtering employees');
+
+  const matchName =
+    this.text.length === 0 ||
+    employee.name.toLocaleLowerCase().includes(this.text.toLocaleLowerCase());
+  const isDev = !this.onlyDevs || employee.position.includes('dev');
+
+  return matchName && isDev;
 }
