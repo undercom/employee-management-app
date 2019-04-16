@@ -1,9 +1,9 @@
 <form>
   <div class="form-group search-group">
     <input
-      placeholder="search..."
       class="form-control"
       #searchInput
+      [placeholder]="placeholderText"
       (keyup)="onKeyUp(searchInput.value)"
     />
     <span class="search-icon"></span>
