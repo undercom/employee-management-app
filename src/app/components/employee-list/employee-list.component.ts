@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './employee-list.component.html',
 })
 export class EmployeeListComponent implements OnInit {
-  private _employees = [
+  initialEmployees = [
     {
       id: 'ae7b7cce-57b2-4a79-ba23-4fbc170fae80',
       picture: 'https://randomuser.me/api/portraits/thumb/women/16.jpg',
@@ -141,15 +141,15 @@ export class EmployeeListComponent implements OnInit {
   employees: Array<any>;
 
   ngOnInit(): void {
-    this.employees = this._employees;
+    this.employees = this.initialEmployees;
   }
 
   filterEmployees(text: string) {
     const hasSearchText = text && text.length > 0;
     this.employees = hasSearchText
-      ? this._employees.filter(e =>
+      ? this.initialEmployees.filter(e =>
           e.name.toLocaleLowerCase().includes(text.toLocaleLowerCase())
         )
-      : this._employees;
+      : this.initialEmployees;
   }
 }
