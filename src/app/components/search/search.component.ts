@@ -10,9 +10,8 @@ export class SearchComponent {
   @Output() textChanged = new EventEmitter<string>();
 
   onKeyUp(newText: string) {
-    const isEmpty = newText.length > 0;
-    if (!isEmpty) {
-      this.textChanged.next(newText);
+    if (newText !== '') {
+      this.textChanged.emit(newText);
     }
   }
 }
