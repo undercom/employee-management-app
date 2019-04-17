@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LoggerService } from './logger.service';
 
 export interface Employee {
   id: string;
@@ -153,7 +154,10 @@ export class EmployeeService {
     },
   ];
 
+  constructor(private loggerService: LoggerService) {}
+
   getEmployees() {
+    this.loggerService.warn('Get employees');
     return this.employees;
   }
 }
