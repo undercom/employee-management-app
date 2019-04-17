@@ -1,7 +1,7 @@
+<app-search (changeEvent)="onSearch($event)"></app-search>
+
 <div class="list-group employee-list">
-  <a class="list-group-item" *ngFor="let emp of employees">
-    <img class="pull-left" [src]="emp.picture" [alt]="emp.name" />
-    <h4 class="list-group-item-heading">{{ emp.name }}</h4>
-    <p class="list-group-item-text">{{ emp.position }}</p>
+  <a class="list-group-item" *ngFor="let emp of employeeFiltred">
+    <app-employee [employee]="emp"></app-employee>
   </a>
 </div>
