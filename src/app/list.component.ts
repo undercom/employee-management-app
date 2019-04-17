@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-employee-list',
@@ -6,19 +6,15 @@ import { Component } from '@angular/core';
 })
 export class EmployeeListComponent {
   isDisabled = false;
-  user = {
-    username: 'foobar',
-    firstName: 'Foo',
-    lastName: 'Bar',
-    age: 18,
-    isAdmin: false,
-  };
+  @Input() user: any;
+  @Output() change = new EventEmitter();
 
   onClick() {
     console.log('Button click');
   }
 
-  onKeyUp(event) {
-    console.log('Input', event);
+  onKeyUp(value: any) {
+    console.log('Input', value);
+    this.change.emit(value);
   }
 }

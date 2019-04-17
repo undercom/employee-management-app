@@ -9,6 +9,6 @@
   [class.btn-primary]="user.isAdmin"
   (click)="onClick()"
 >
-  SAVE
-</button>
-<input type="text" (keyup)="onKeyUp($event)" />
+  SAVE</button
+><br />
+<input type="text" (keyup)="onKeyUp($event.target.value)" />
