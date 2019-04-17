@@ -1,0 +1,14 @@
+<p>Full name: {{ user.firstName }} {{ user.lastName }}</p>
+<p>Full name: {{ user.firstName + ' ' + user.lastName }}</p>
+<p>Age: {{ user.age }}</p>
+<button [disabled]="isDisabled">SAVE</button>
+<p>Is user Admin? {{ user.isAdmin ? 'YES' : 'NO' }}</p>
+<button
+  [disabled]="isDisabled"
+  class="btn"
+  [class.btn-primary]="user.isAdmin"
+  (click)="onClick()"
+>
+  SAVE
+</button>
+<input type="text" (keyup)="onKeyUp($event)" />
