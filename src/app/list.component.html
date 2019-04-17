@@ -1,14 +1,7 @@
-<p>Full name: {{ user.firstName }} {{ user.lastName }}</p>
-<p>Full name: {{ user.firstName + ' ' + user.lastName }}</p>
-<p>Age: {{ user.age }}</p>
-<button [disabled]="isDisabled">SAVE</button>
-<p>Is user Admin? {{ user.isAdmin ? 'YES' : 'NO' }}</p>
-<button
-  [disabled]="isDisabled"
-  class="btn"
-  [class.btn-primary]="user.isAdmin"
-  (click)="onClick()"
->
-  SAVE</button
-><br />
-<input type="text" (keyup)="onKeyUp($event.target.value)" />
+<div class="list-group employee-list">
+  <a class="list-group-item" *ngFor="let emp of employees">
+    <img class="pull-left" [src]="emp.picture" [alt]="emp.name" />
+    <h4 class="list-group-item-heading">{{ emp.name }}</h4>
+    <p class="list-group-item-text">{{ emp.position }}</p>
+  </a>
+</div>
