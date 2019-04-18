@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EmployeeService } from '../../services/employee/employee.service';
+import {
+  EmployeeService,
+  Employee,
+} from '../../../services/employee/employee.service';
 
 @Component({
   selector: 'app-employee-details',
@@ -12,11 +15,11 @@ export class EmployeeDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private employeeService: EmployeeService
   ) {}
-
+  employee: Employee;
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     console.log(this.route.snapshot.paramMap);
-    let employee = this.employeeService.getEmployeeId(id);
-    console.log(employee);
+    this.employee = this.employeeService.getEmployeeId(id);
+    console.log(this.employee);
   }
 }

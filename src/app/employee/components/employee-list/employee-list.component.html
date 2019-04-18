@@ -1,7 +1,11 @@
 <app-search (changeEvent)="onSearch($event)"></app-search>
 
 <div class="list-group employee-list">
-  <a class="list-group-item" *ngFor="let emp of employeeFiltred">
+  <a
+    class="list-group-item"
+    *ngFor="let emp of employeeFiltred"
+    [routerLink]="['/employee', emp.id]"
+  >
     <app-employee [employee]="emp"></app-employee>
   </a>
 </div>

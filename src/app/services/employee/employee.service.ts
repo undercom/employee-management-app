@@ -23,7 +23,7 @@ export interface Address {
 export class EmployeeService {
   private employees: Employee[] = [
     {
-      id: 'ae7b7cce-57b2-4a79-ba23-4fbc170fae80',
+      id: '1',
       picture: 'https://randomuser.me/api/portraits/thumb/women/16.jpg',
       name: 'Loraine Bradford',
       email: 'loraine.bradford@visma.com',
