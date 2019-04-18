@@ -4,6 +4,7 @@ import { EmployeeDetailsComponent } from './components/employee-details/employee
 import { EmployeeComponent } from './components/employee/employee.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { SharedModule } from '../shared/shared.module';
+import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
 
 @NgModule({
   imports: [SharedModule],
@@ -11,7 +12,13 @@ import { SharedModule } from '../shared/shared.module';
     EmployeeListComponent,
     EmployeeComponent,
     EmployeeDetailsComponent,
+    EmployeeNewComponent,
   ],
-  exports: [EmployeeListComponent, EmployeeComponent, EmployeeDetailsComponent],
+  exports: [
+    EmployeeListComponent,
+    EmployeeComponent,
+    EmployeeDetailsComponent,
+    EmployeeNewComponent,
+  ],
 })
 export class EmployeeModule {}
