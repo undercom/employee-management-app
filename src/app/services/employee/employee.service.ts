@@ -160,4 +160,8 @@ export class EmployeeService {
     this.loggerService.warn('Get employees');
     return this.employees;
   }
+
+  getEmployeeId(id: String) {
+    return this.employees.find(emp => emp.id === id);
+  }
 }
