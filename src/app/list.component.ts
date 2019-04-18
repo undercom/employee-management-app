@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { EmployeeService, Employee } from './employee.service';
-import { LoggerService } from './logger.service';
+import { EmployeeService, Employee } from './services/employee/employee.service';
+import { LoggerService } from './services/logger/logger.service';
 
 @Component({
   selector: 'app-employee-list',
