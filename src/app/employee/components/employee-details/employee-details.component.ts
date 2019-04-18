@@ -15,11 +15,17 @@ export class EmployeeDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private employeeService: EmployeeService
   ) {}
+
   employee: Employee;
+
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     console.log(this.route.snapshot.paramMap);
     this.employee = this.employeeService.getEmployeeId(id);
     console.log(this.employee);
+  }
+
+  save(value: any) {
+    console.log('s');
   }
 }

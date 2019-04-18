@@ -5,9 +5,10 @@ import { RouterModule } from '@angular/router';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { AddressPipe } from './pipes/address.pipe';
 import { LeftPadding } from './pipes/left-padding.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   declarations: [SearchComponent, ReversePipe, AddressPipe, LeftPadding],
   exports: [
     CommonModule,
@@ -16,6 +17,7 @@ import { LeftPadding } from './pipes/left-padding.pipe';
     ReversePipe,
     AddressPipe,
     LeftPadding,
+    FormsModule,
   ],
 })
 export class SharedModule {}
