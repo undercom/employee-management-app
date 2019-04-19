@@ -21,7 +21,9 @@ export class EmployeeDetailsComponent implements OnInit {
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     console.log(this.route.snapshot.paramMap);
-    this.employee = this.employeeService.getEmployeeId(id);
+    this.employeeService.getEmployeeId(id).subscribe(emp => {
+      this.employee = emp;
+    });
     console.log(this.employee);
   }
 

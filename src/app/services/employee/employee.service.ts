@@ -172,7 +172,13 @@ export class EmployeeService {
     return throwError(err);
   }
 
-  getEmployeeId(id: String) {
-    return this.employees.find(emp => emp.id === id);
+  getEmployeeId(id: String): Observable<Employee> {
+    return this.http
+      .get<Employee>(this.url + '/' + id)
+      .pipe(catchError(this.errorHandler));
   }
+
+  // getEmployeeId(id: String) {
+  //   return this.employees.find(emp => emp.id === id);
+  // }
 }
