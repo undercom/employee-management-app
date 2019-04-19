@@ -1,5 +1,8 @@
-<app-search (changeEvent)="onSearch($event)"></app-search>
-
+<app-search class="row" (changeEvent)="searchStream$.next($event)"></app-search>
+<label>
+  <input type="checkbox" (click)="devStream$.next($event.target.checked)" />Show
+  only devs
+</label>
 <div class="list-group employee-list">
   <a
     class="list-group-item"
