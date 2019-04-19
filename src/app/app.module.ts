@@ -8,10 +8,9 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { SharedModule } from './shared/shared.module';
 import { EmployeeModule } from './employee/employee.module';
-import { EmployeeNewComponent } from './employee/components/employee-new/employee-new.component';
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, EmployeeNewComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
