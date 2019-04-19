@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LoggerService } from '../logger/logger.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 export interface Employee {
   id: string;
@@ -21,6 +24,7 @@ export interface Address {
   providedIn: 'root',
 })
 export class EmployeeService {
+  private url = 'http://192.168.201.240:3000/api/employees';
   private employees: Employee[] = [
     {
       id: '1',
@@ -154,11 +158,18 @@ export class EmployeeService {
     },
   ];
 
-  constructor(private loggerService: LoggerService) {}
+  constructor(private loggerService: LoggerService, private http: HttpClient) {}
 
-  getEmployees() {
+  getEmployees(): Observable<Employee[]> {
     this.loggerService.warn('Get employees');
-    return this.employees;
+
+    return this.http
+      .get<Employee[]>(this.url)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  errorHandler(err) {
+    return throwError(err);
   }
 
   getEmployeeId(id: String) {

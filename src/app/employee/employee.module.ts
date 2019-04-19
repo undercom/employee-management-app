@@ -6,9 +6,10 @@ import { EmployeeListComponent } from './components/employee-list/employee-list.
 import { SharedModule } from '../shared/shared.module';
 import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [SharedModule, ReactiveFormsModule],
+  imports: [SharedModule, ReactiveFormsModule, HttpClientModule],
   declarations: [
     EmployeeListComponent,
     EmployeeComponent,
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EmployeeDetailsComponent,
     EmployeeNewComponent,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
 })
 export class EmployeeModule {}

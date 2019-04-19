@@ -6,7 +6,7 @@
 <div class="list-group employee-list">
   <a
     class="list-group-item"
-    *ngFor="let emp of employeeFiltred"
+    *ngFor="let emp of employees"
     [routerLink]="['/employee', emp.id]"
   >
     <app-employee [employee]="emp"></app-employee>

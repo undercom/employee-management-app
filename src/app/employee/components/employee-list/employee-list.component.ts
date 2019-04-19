@@ -17,6 +17,7 @@ import {
 })
 export class EmployeeListComponent implements OnInit {
   employees: Employee[];
+  initialEmployees: Employee[];
 
   searchStream$ = new Subject<string>();
   devStream$ = new Subject<boolean>();
@@ -26,8 +27,10 @@ export class EmployeeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.employees = this.employeeService.getEmployees();
-    this.employeeFiltred = this.employees;
+    this.employeeService.getEmployees().subscribe(emp => {
+      this.employees = emp;
+      this.initialEmployees = this.employees;
+    });
 
     const filteredSearch = this.searchStream$.pipe(
       startWith(''),
@@ -38,16 +41,19 @@ export class EmployeeListComponent implements OnInit {
 
     const filteredDev$ = this.devStream$.pipe(startWith(false));
 
-    combineLatest(filteredSearch, filteredDev$).subscribe(val =>
-      console.log(val)
+    combineLatest(filteredSearch, filteredDev$).subscribe(
+      ([searchTer, onlyDevs]) => {
+        this.onSearch(searchTer, onlyDevs);
+      }
     );
   }
 
-  employeeFiltred = [];
-
   onSearch(value: string = '', onlyDevs: boolean) {
+    if (!this.initialEmployees) {
+      return;
+    }
     console.log('Filtering employee', value, onlyDevs);
-    this.employees = this.employees.filter((employee: Employee) => {
+    this.employees = this.initialEmployees.filter((employee: Employee) => {
       const matchName =
         value.length === 0 ||
         employee.name.toLocaleLowerCase().includes(value.toLocaleLowerCase());
@@ -57,9 +63,9 @@ export class EmployeeListComponent implements OnInit {
   }
 
   // onSearch(value: string) {
-  //   this.employeeFiltred = this.employees.filter(emp =>
+  //   this.employees = this.employees.filter(emp =>
   //     emp.name.toLowerCase().includes(value.toLowerCase())
   //   );
-  //   console.log('Output: ', value, this.employeeFiltred);
+  //   console.log('Output: ', value, this.employees);
   // }
 }
