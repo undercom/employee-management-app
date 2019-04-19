@@ -8,11 +8,23 @@ export class LoggerService {
     console.log('[LOG]' + value);
   }
 
+  info(value) {
+    console.log('[INFO]' + value);
+  }
+
   warn(value: any) {
-    console.warn(`[LOG] ${value}`);
+    console.warn(`[WARN] ${value}`);
   }
 
   error(value: any) {
-    console.warn(`[LOG] ${value}`);
+    console.warn(`[ERROR] ${value}`);
+  }
+
+  appendText(value: string) {
+    this.log(`LOG:` + value);
+  }
+
+  sum(x, y) {
+    return x + y;
   }
 }
